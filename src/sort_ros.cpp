@@ -29,7 +29,7 @@ void SortRos::callback(const RoiArrayMsg& rois) {
         rect.centerX = (roi.top_right.x + roi.bottom_left.x) / 2;
         rect.centerY = (roi.top_right.y + roi.bottom_left.y) / 2;
         rect.width = (roi.top_right.x - roi.bottom_left.x);
-        rect.height = (roi.top_right.y - roi.bottom_left.y);
+        rect.height = (roi.bottom_left.y - roi.top_right.y);
 
         rects.push_back(rect);
     }
@@ -41,7 +41,6 @@ void SortRos::callback(const RoiArrayMsg& rois) {
     // Overwrite the previous message with new uuids
 
     auto tracked_rois = std::make_unique<RoiArrayMsg>(rois);
-    // auto tracked_rois = const_cast<RoiArrayMsg>(rois);
     for (size_t i = 0; i < rects.size(); i++) {
         // For readability
         auto& rect = rects[i];
