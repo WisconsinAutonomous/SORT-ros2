@@ -2,7 +2,7 @@
 
 namespace vision_tracker {
 
-SortRos::SortRos(const rclcpp::NodeOptions& options) : rclcpp::Node("sort_ros", options) {
+SortRos::SortRos(const rclcpp::NodeOptions options) : rclcpp::Node("sort_ros", options) {
     double maxAge = this->declare_parameter<double>("max_age", 2.0);
     double minHits = this->declare_parameter<double>("min_hits", 3.0);
     double iouThreshold = this->declare_parameter<double>("iou_threshold", 0.3);

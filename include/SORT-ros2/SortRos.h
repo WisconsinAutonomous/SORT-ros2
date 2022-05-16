@@ -24,7 +24,7 @@ class SortRos : public rclcpp::Node {
     typedef std::shared_ptr<RoiArrayPublisher> RoiArrayPublisherPtr;
 
   public:
-    SortRos(const rclcpp::NodeOptions& options = {});
+    SortRos(const rclcpp::NodeOptions options = {});
     ~SortRos();
 
     // -------------
