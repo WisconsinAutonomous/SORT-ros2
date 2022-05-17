@@ -46,7 +46,7 @@ void SortRos::callback(const RoiArrayMsg& rois) {
         auto& rect = rects[i];
         auto& roi = tracked_rois->rois[i];
 
-        roi.id = rect.id;
+        roi.id = rect.id % 63 + 1;
     }
     m_rois_publisher->publish(std::move(tracked_rois));
 }
