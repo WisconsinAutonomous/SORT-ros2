@@ -41,13 +41,25 @@ void SortRos::callback(const RoiArrayMsg& rois) {
     // Overwrite the previous message with new uuids
 
     auto tracked_rois = std::make_unique<RoiArrayMsg>(rois);
-    for (size_t i = 0; i < rects.size(); i++) {
-        // For readability
-        auto& rect = rects[i];
-        auto& roi = tracked_rois->rois[i];
+    std::size_t idx = 0;
+	for (auto iter = tracked_rois->rois.begin(); iter != tracked_rois->rois.end(); ) {
+        if (rects.size() > idx) {
+            // Okay
+            // For readability
+            auto& rect = rects[idx];
+            auto& roi = tracked_rois->rois[idx];
 
-        roi.id = rect.id % 63 + 1;
-    }
+            roi.id = rect.id % 63 + 1;
+
+            ++iter;
+            ++idx;
+        }
+        else {
+            // Don't have a valid ID yet
+            // Ignore
+            iter = tracked_rois->rois.erase(iter);
+        }
+	}
     m_rois_publisher->publish(std::move(tracked_rois));
 }
 
